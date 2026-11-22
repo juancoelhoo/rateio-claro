@@ -100,3 +100,9 @@ li {
     padding: 0.25rem;
   }
 }
+.area-trabalho {
+  border: 0;
+  margin: 0;
+  padding: 0;
+  min-width: 0;
+}
