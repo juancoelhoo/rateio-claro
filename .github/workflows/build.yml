@@ -15,6 +15,12 @@ jobs:
         with:
           node-version: 22
           cache: npm
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: python -m pip install -r requirements.txt
+      - run: python -m coverage run manage.py test
+      - run: python -m coverage xml -o coverage-python.xml
       - run: npm ci
       - run: npm run build
       - run: npm run coverage
@@ -23,30 +29,15 @@ jobs:
       - uses: codecov/codecov-action@v5
         if: matrix.os == 'ubuntu-latest'
         with:
-          files: coverage/lcov.info
+          files: coverage/lcov.info,coverage-python.xml
           token: ${{ secrets.CODECOV_TOKEN }}
           fail_ci_if_error: true
   publicar:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.DEPLOY_ENABLED == 'true'
     needs: verificar
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      pages: write
-      id-token: write
-    environment:
-      name: github-pages
-      url: ${{ steps.deploy.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 22
-          cache: npm
-      - run: npm ci
-      - run: npm run build
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: dist
-      - id: deploy
-        uses: actions/deploy-pages@v4
+      - name: Solicitar deploy da aplicação Django
+        env:
+          DEPLOY_HOOK: ${{ secrets.DEPLOY_HOOK }}
+        run: curl --fail --silent --show-error --output /dev/null --request POST "$DEPLOY_HOOK"

@@ -1,0 +1,12 @@
+node_modules/
+dist/
+coverage/
+test-results/
+playwright-report/
+.venv/
+__pycache__/
+*.sqlite3*
+.coverage
+coverage-python.xml
+.django-secret
+.git
