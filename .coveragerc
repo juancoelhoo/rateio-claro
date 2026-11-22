@@ -1,0 +1,9 @@
+[run]
+source = backend
+omit =
+    */migrations/*
+    */tests.py
+    */e2e_server.py
+    */wsgi.py
+[report]
+fail_under = 80
