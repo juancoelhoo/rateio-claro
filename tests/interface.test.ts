@@ -24,3 +24,27 @@ test('restaura um encontro salvo e recalcula o acerto após adicionar uma despes
     localStorage.clear()
   }
 })
+
+test('impede cadastrar novamente um participante com diferença de espaços e maiúsculas', async () => {
+  Object.assign(globalThis,{IS_REACT_ACT_ENVIRONMENT:true})
+  const host = document.createElement('div')
+  document.body.append(host)
+  const root = createRoot(host)
+  async function preencher(campo: string, texto: string) {
+    const input = host.querySelector<HTMLInputElement>(`input[name="${campo}"]`)!
+    input.value = texto
+    await act(async () => input.form!.requestSubmit())
+  }
+  try {
+    await act(async () => root.render(createElement(App)))
+    await preencher('nome','Piquenique')
+    await preencher('pessoa','Ana')
+    await preencher('pessoa',' ANA ')
+    expect(host.querySelector('[role=alert]')?.textContent).toMatch(/já está no encontro/)
+    expect(JSON.parse(localStorage.getItem('rateio-claro-v1')!).pessoas).toHaveLength(1)
+  } finally {
+    await act(async () => root.unmount())
+    host.remove()
+    localStorage.clear()
+  }
+})
