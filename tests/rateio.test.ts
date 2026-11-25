@@ -91,3 +91,11 @@ test("registra consumo conforme os pesos da despesa", () => {
   const dados = { nome: "Lanche", pessoas: [{ id: "a", nome: "Ana" }, { id: "b", nome: "Bia" }], despesas: [{ descricao: "Lanche", valor: 900, pagador: "a", pesos: { a: 1, b: 2 } }] };
   expect(resumo(dados).map((p) => p.consumo)).toEqual([300, 600]);
 });
+test("conserva o total entre pagamentos e consumo", () => {
+  const linhas = resumo({ nome: "Jantar", pessoas: [{ id: "a", nome: "Ana" }, { id: "b", nome: "Bia" }, { id: "c", nome: "Caio" }], despesas: [{ descricao: "Pizza", valor: 1001, pagador: "a", pesos: { a: 1, b: 1, c: 1 } }, { descricao: "Bebida", valor: 700, pagador: "b", pesos: { a: 2, b: 1 } }] });
+  expect(linhas.reduce((soma, p) => soma + p.pago, 0)).toBe(1701);
+  expect(linhas.reduce((soma, p) => soma + p.consumo, 0)).toBe(1701);
+  expect(linhas.reduce((soma, p) => soma + p.saldo, 0)).toBe(0);
+});
+
+// Sugestões de transferências.
