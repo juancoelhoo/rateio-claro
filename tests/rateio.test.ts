@@ -109,3 +109,13 @@ test("preserva o valor total dos créditos nas sugestões", () => {
   const sugestoes = transferencias([{ id: "a", nome: "Ana", saldo: 120 }, { id: "b", nome: "Bia", saldo: -30 }, { id: "c", nome: "Caio", saldo: -90 }]);
   expect(sugestoes.reduce((soma, item) => soma + item.valor, 0)).toBe(120);
 });
+test("quita cada saldo com as transferências sugeridas", () => {
+  const linhas = [{ id: "a", nome: "Ana", saldo: 80 }, { id: "b", nome: "Bia", saldo: -50 }, { id: "c", nome: "Caio", saldo: 20 }, { id: "d", nome: "Davi", saldo: -50 }];
+  const sugestoes = transferencias(linhas);
+  const restante = new Map(linhas.map((p) => [p.nome, p.saldo]));
+  for (const item of sugestoes) {
+    restante.set(item.de, restante.get(item.de)! + item.valor);
+    restante.set(item.para, restante.get(item.para)! - item.valor);
+  }
+  expect([...restante.values()]).toEqual([0, 0, 0, 0]);
+});
