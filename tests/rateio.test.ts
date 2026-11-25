@@ -47,3 +47,4 @@ test("aceita espaços externos", () => expect(centavos("  7,25  ")).toBe(725));
 test("converte o menor valor positivo", () => expect(centavos("0,01")).toBe(1));
 test("converte o maior valor inteiro permitido", () => expect(centavos("99999999")).toBe(9999999900));
 test("rejeita texto vazio", () => expect(() => centavos("")).toThrow());
+test("rejeita apenas espaços", () => expect(() => centavos("   ")).toThrow());
