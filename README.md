@@ -51,16 +51,19 @@ npm run build
 
 Para usar o sistema, execute `npm run dev` e abra o endereço exibido. O build de produção fica em `dist/`. A cobertura considera a interface e o domínio, excluindo apenas o ponto de montagem React. O workflow exige 80% de linhas, funções, instruções e ramificações.
 
-## Testes reservados para o grupo
+## Cobertura dos requisitos de testes
 
-A base contém **9 testes unitários de domínio, 2 testes de integração da interface, 4 da API Django e 2 e2e**. Contando as categorias separadamente, faltam **41 unitários e 3 e2e**. Os agrupamentos abaixo são uma sugestão de divisão por comportamentos.
+A suíte contém **53 testes unitários de domínio**, 2 testes de integração da interface, 4 testes da API Django e **5 testes E2E**. Os testes de domínio cobrem entradas monetárias, validação e distribuição de parcelas, cálculo de saldos e sugestões de transferências. Os E2E percorrem a divisão igual, seleção de consumidores, divisão por quantidade, despesas pagas por pessoas diferentes e histórico.
 
-| Responsável | Unitários restantes | E2E restantes |
-|---|---|---|
-| Integrante 2 | 21 sobre entrada de valores e parcelas. Cobrir inteiros, espaços externos, vírgula e ponto, menor e maior valor, valores negativos ou malformados, pesos fracionários, nulos ou excessivos, consumidor único, distribuição exata, vários centavos restantes e quantidades distintas. | 1. Dividir bebidas apenas entre quem consumiu. 2. Registrar consumo por quantidade e conferir as parcelas. |
-| Integrante 3 | 20 sobre saldos e transferências. Cobrir encontro vazio, pessoa sem consumo, pagador que também consumiu, múltiplas despesas e pagadores, saldo quitado, créditos e débitos parciais, um devedor com vários credores, vários devedores com um credor, conservação dos totais e quitação de cada saldo após as sugestões. | 3. Registrar despesas pagas por pessoas diferentes e conferir o acerto. |
+O workflow executa build, testes, cobertura e E2E em Linux, macOS e Windows. Ele envia os relatórios LCOV e XML ao Codecov quando o segredo `CODECOV_TOKEN` está configurado. A cobertura JavaScript exige 80% em linhas, funções, instruções e ramificações; a cobertura Django exige 80% no relatório geral.
 
-Cada integrante deve criar os casos em sua branch, com commits pequenos por comportamento e revisão por outra pessoa. A meta de 50 commits vale para o projeto completo.
+## Pendências da entrega
+
+- O enunciado exige pelo menos 50 commits, com mensagens descritivas e mudanças pequenas. Os testes adicionados foram registrados individualmente no histórico.
+- Vincular o repositório ao Codecov e configurar `CODECOV_TOKEN` nos segredos do GitHub Actions para confirmar a publicação dos relatórios.
+- Publicar a aplicação com armazenamento persistente e configurar `DEPLOY_HOOK` e `DEPLOY_ENABLED=true` para habilitar o deploy pelo workflow.
+- Gravar e publicar no YouTube o vídeo de até 5 minutos solicitado pelo trabalho.
+- Completar a seção “Uso de IA” com a contribuição de cada integrante.
 
 ## CI e publicação
 
