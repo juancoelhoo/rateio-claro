@@ -76,3 +76,4 @@ test("rejeita peso acima do limite", () => expect(() => parcelas(100, { ana: 100
 
 // Saldos por participante.
 test("retorna lista vazia para encontro sem participantes", () => expect(resumo({ nome: "Vazio", pessoas: [], despesas: [] })).toEqual([]));
+test("inicia saldos zerados sem despesas", () => expect(resumo({ nome: "Almoço", pessoas: [{ id: "a", nome: "Ana" }], despesas: [] })).toEqual([{ id: "a", nome: "Ana", pago: 0, consumo: 0, saldo: 0 }]));
