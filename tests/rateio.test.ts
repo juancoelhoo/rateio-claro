@@ -52,3 +52,6 @@ test("rejeita valor negativo", () => expect(() => centavos("-1")).toThrow());
 test("rejeita sinal positivo", () => expect(() => centavos("+1")).toThrow());
 test("rejeita separadores repetidos", () => expect(() => centavos("1,2.3")).toThrow());
 test("rejeita separador sem parte inteira", () => expect(() => centavos(",50")).toThrow());
+test("rejeita mais de oito algarismos inteiros", () => expect(() => centavos("100000000")).toThrow());
+
+// Distribuição de parcelas e validação dos argumentos.
