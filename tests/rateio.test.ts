@@ -67,3 +67,4 @@ test("preserva a soma ao ratear muitos centavos restantes", () => {
 test("rejeita despesa zero", () => expect(() => parcelas(0, { ana: 1 })).toThrow());
 test("rejeita centavos não inteiros", () => expect(() => parcelas(1.5, { ana: 1 })).toThrow());
 test("rejeita valor acima do limite", () => expect(() => parcelas(10000000000, { ana: 1 })).toThrow());
+test("rejeita valor que não é inteiro seguro", () => expect(() => parcelas(Number.MAX_SAFE_INTEGER + 1, { ana: 1 })).toThrow());
