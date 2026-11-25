@@ -2,7 +2,7 @@
 
 ## Integrantes
 
-1. Bruna Caroline Cardoso da Silva
+1. Bruna Caroline Cardoso da Silva 
 2. Juan Vinicius Coelho
 3. Nathally Fernandes de Brito Oliveira
 
