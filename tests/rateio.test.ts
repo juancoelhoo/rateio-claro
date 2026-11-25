@@ -59,3 +59,8 @@ test("atribui toda a despesa ao único consumidor", () => expect(parcelas(123, {
 test("divide igualmente quando o valor é divisível", () => expect(parcelas(120, { ana: 1, bia: 1, caio: 1 })).toEqual({ ana: 40, bia: 40, caio: 40 }));
 test("distribui dois centavos restantes em ordem de cadastro", () => expect(parcelas(5, { ana: 1, bia: 1, caio: 1 })).toEqual({ ana: 2, bia: 2, caio: 1 }));
 test("divide proporcionalmente por quantidades diferentes", () => expect(parcelas(900, { ana: 1, bia: 2, caio: 3 })).toEqual({ ana: 150, bia: 300, caio: 450 }));
+test("preserva a soma ao ratear muitos centavos restantes", () => {
+  const partes = parcelas(1001, { a: 1, b: 1, c: 1, d: 1, e: 1, f: 1 });
+  expect(Object.values(partes).reduce((soma, valor) => soma + valor, 0)).toBe(1001);
+  expect(Object.values(partes).filter((valor) => valor === 167)).toHaveLength(5);
+});
