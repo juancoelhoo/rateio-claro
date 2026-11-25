@@ -71,3 +71,4 @@ test("rejeita valor que não é inteiro seguro", () => expect(() => parcelas(Num
 test("rejeita peso zero", () => expect(() => parcelas(100, { ana: 0 })).toThrow());
 test("rejeita peso negativo", () => expect(() => parcelas(100, { ana: -1 })).toThrow());
 test("rejeita peso fracionário", () => expect(() => parcelas(100, { ana: 1.5 })).toThrow());
+test("rejeita peso nulo", () => expect(() => parcelas(100, { ana: null as unknown as number })).toThrow());
