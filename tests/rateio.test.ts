@@ -102,3 +102,4 @@ test("conserva o total entre pagamentos e consumo", () => {
 test("não sugere transferências quando todos estão quitados", () => expect(transferencias([{ id: "a", nome: "Ana", pago: 100, consumo: 100, saldo: 0 }])).toEqual([]));
 test("não sugere transferências para uma lista vazia", () => expect(transferencias([])).toEqual([]));
 test("permite que a mesma pessoa seja pagadora e credora parcial", () => expect(transferencias([{ id: "a", nome: "Ana", pago: 150, consumo: 100, saldo: 50 }, { id: "b", nome: "Bia", pago: 50, consumo: 100, saldo: -50 }])).toEqual([{ de: "Bia", para: "Ana", valor: 50 }]));
+test("divide uma dívida entre vários credores", () => expect(transferencias([{ id: "a", nome: "Ana", saldo: 30 }, { id: "b", nome: "Bia", saldo: 70 }, { id: "c", nome: "Caio", saldo: -100 }])).toEqual([{ de: "Caio", para: "Ana", valor: 30 }, { de: "Caio", para: "Bia", valor: 70 }]));
