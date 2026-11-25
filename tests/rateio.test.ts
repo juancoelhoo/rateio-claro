@@ -37,3 +37,6 @@ test("orienta o pagamento de quem consumiu para quem adiantou", () =>
   expect(transferencias(resumo(encontro))).toEqual([
     { de: "Bia", para: "Ana", valor: 800 },
   ]));
+
+// Entradas de valores em reais.
+test("converte um valor inteiro em reais", () => expect(centavos("12")).toBe(1200));
