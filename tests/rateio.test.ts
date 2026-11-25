@@ -65,3 +65,4 @@ test("preserva a soma ao ratear muitos centavos restantes", () => {
   expect(Object.values(partes).filter((valor) => valor === 167)).toHaveLength(5);
 });
 test("rejeita despesa zero", () => expect(() => parcelas(0, { ana: 1 })).toThrow());
+test("rejeita centavos não inteiros", () => expect(() => parcelas(1.5, { ana: 1 })).toThrow());
