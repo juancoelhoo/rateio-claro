@@ -52,7 +52,9 @@ export function resumo({ pessoas, despesas }: Encontro) {
   return linhas;
 }
 
-export function transferencias(linhas: ReturnType<typeof resumo>) {
+export function transferencias<
+  T extends Pick<ReturnType<typeof resumo>[number], "nome" | "saldo">,
+>(linhas: T[]) {
   const creditos = linhas.filter((p) => p.saldo > 0).map((p) => ({ ...p }));
   const sugestoes = [];
   let i = 0;
