@@ -69,3 +69,4 @@ test("rejeita centavos não inteiros", () => expect(() => parcelas(1.5, { ana: 1
 test("rejeita valor acima do limite", () => expect(() => parcelas(10000000000, { ana: 1 })).toThrow());
 test("rejeita valor que não é inteiro seguro", () => expect(() => parcelas(Number.MAX_SAFE_INTEGER + 1, { ana: 1 })).toThrow());
 test("rejeita peso zero", () => expect(() => parcelas(100, { ana: 0 })).toThrow());
+test("rejeita peso negativo", () => expect(() => parcelas(100, { ana: -1 })).toThrow());
