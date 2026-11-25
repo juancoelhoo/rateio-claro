@@ -55,3 +55,4 @@ test("rejeita separador sem parte inteira", () => expect(() => centavos(",50")).
 test("rejeita mais de oito algarismos inteiros", () => expect(() => centavos("100000000")).toThrow());
 
 // Distribuição de parcelas e validação dos argumentos.
+test("atribui toda a despesa ao único consumidor", () => expect(parcelas(123, { ana: 1 })).toEqual({ ana: 123 }));
