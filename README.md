@@ -2,9 +2,9 @@
 
 ## Integrantes
 
-1. Nome completo a preencher
-2. Nome completo a preencher
-3. Nome completo a preencher
+1. Bruna Caroline Cardoso da Silva
+2. Juan Vinicius Coelho
+3. Nathally Fernandes de Brito Oliveira
 
 ## Sobre o sistema
 
