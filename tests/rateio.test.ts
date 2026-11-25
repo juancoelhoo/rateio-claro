@@ -85,7 +85,13 @@ test("acumula despesas pagas por participantes diferentes", () => {
   const dados = { nome: "Viagem", pessoas: [{ id: "a", nome: "Ana" }, { id: "b", nome: "Bia" }], despesas: [{ descricao: "Almoço", valor: 1000, pagador: "a", pesos: { a: 1, b: 1 } }, { descricao: "Táxi", valor: 600, pagador: "b", pesos: { a: 1, b: 1 } }] };
   expect(resumo(dados).map(({ pago, consumo, saldo }) => ({ pago, consumo, saldo }))).toEqual([{ pago: 1000, consumo: 800, saldo: 200 }, { pago: 600, consumo: 800, saldo: -200 }]);
 });
-test("mantém em zero o saldo de quem não pagou nem consumiu", () => expect(resumo(encontro)[2]).toMatchObject({ pago: 0, consumo: 0, saldo: 0 }));
+test("mantém em zero o saldo de quem não pagou nem consumiu", () => {
+  const dados = {
+    ...encontro,
+    pessoas: [...encontro.pessoas, { id: "c", nome: "Caio" }],
+  };
+  expect(resumo(dados)[2]).toMatchObject({ pago: 0, consumo: 0, saldo: 0 });
+});
 test("deixa crédito para pagador que não consumiu", () => expect(resumo(encontro)[0]).toMatchObject({ saldo: 800 }));
 test("registra consumo conforme os pesos da despesa", () => {
   const dados = { nome: "Lanche", pessoas: [{ id: "a", nome: "Ana" }, { id: "b", nome: "Bia" }], despesas: [{ descricao: "Lanche", valor: 900, pagador: "a", pesos: { a: 1, b: 2 } }] };
