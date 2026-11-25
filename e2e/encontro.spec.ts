@@ -54,3 +54,21 @@ test("divide bebidas somente entre quem consumiu", async ({ page }) => {
   await expect(page.getByRole("row", { name: /Bia R\$\s*0,00 R\$\s*30,00 -R\$\s*30,00/ })).toBeVisible();
 });
 
+test("registra consumo por quantidade e confere as parcelas", async ({ page }) => {
+  await page.goto("/");
+  await page.getByLabel("Nome do encontro").fill("Lanche");
+  await page.getByRole("button", { name: "Criar encontro" }).click();
+  for (const nome of ["Ana", "Bia"]) {
+    await page.getByLabel("Nome do participante").fill(nome);
+    await page.getByRole("button", { name: "Adicionar participante" }).click();
+  }
+  await page.getByLabel("Divisão").selectOption("quantidade");
+  await page.getByLabel("Quantidade de Ana").fill("1");
+  await page.getByLabel("Quantidade de Bia").fill("2");
+  await page.getByLabel("Descrição").fill("Porções");
+  await page.getByLabel("Valor (R$)").fill("30");
+  await page.getByRole("button", { name: "Registrar despesa" }).click();
+  await expect(page.getByText(/Bia transfere R\$\s*20,00 para Ana/)).toBeVisible();
+  await expect(page.getByRole("row", { name: /Bia R\$\s*0,00 R\$\s*20,00 -R\$\s*20,00/ })).toBeVisible();
+});
+
