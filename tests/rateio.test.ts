@@ -56,3 +56,4 @@ test("rejeita mais de oito algarismos inteiros", () => expect(() => centavos("10
 
 // Distribuição de parcelas e validação dos argumentos.
 test("atribui toda a despesa ao único consumidor", () => expect(parcelas(123, { ana: 1 })).toEqual({ ana: 123 }));
+test("divide igualmente quando o valor é divisível", () => expect(parcelas(120, { ana: 1, bia: 1, caio: 1 })).toEqual({ ana: 40, bia: 40, caio: 40 }));
