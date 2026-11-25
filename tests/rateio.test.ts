@@ -81,3 +81,7 @@ test("calcula saldo zero quando pagador consome a própria despesa", () => {
   const dados = { nome: "Café", pessoas: [{ id: "a", nome: "Ana" }], despesas: [{ descricao: "Café", valor: 350, pagador: "a", pesos: { a: 1 } }] };
   expect(resumo(dados)[0]).toMatchObject({ pago: 350, consumo: 350, saldo: 0 });
 });
+test("acumula despesas pagas por participantes diferentes", () => {
+  const dados = { nome: "Viagem", pessoas: [{ id: "a", nome: "Ana" }, { id: "b", nome: "Bia" }], despesas: [{ descricao: "Almoço", valor: 1000, pagador: "a", pesos: { a: 1, b: 1 } }, { descricao: "Táxi", valor: 600, pagador: "b", pesos: { a: 1, b: 1 } }] };
+  expect(resumo(dados).map(({ pago, consumo, saldo }) => ({ pago, consumo, saldo }))).toEqual([{ pago: 1000, consumo: 800, saldo: 200 }, { pago: 600, consumo: 800, saldo: -200 }]);
+});
