@@ -99,3 +99,4 @@ test("conserva o total entre pagamentos e consumo", () => {
 });
 
 // Sugestões de transferências.
+test("não sugere transferências quando todos estão quitados", () => expect(transferencias([{ id: "a", nome: "Ana", pago: 100, consumo: 100, saldo: 0 }])).toEqual([]));
