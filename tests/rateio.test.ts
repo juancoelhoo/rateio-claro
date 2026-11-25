@@ -105,3 +105,7 @@ test("permite que a mesma pessoa seja pagadora e credora parcial", () => expect(
 test("divide uma dívida entre vários credores", () => expect(transferencias([{ id: "a", nome: "Ana", saldo: 30 }, { id: "b", nome: "Bia", saldo: 70 }, { id: "c", nome: "Caio", saldo: -100 }])).toEqual([{ de: "Caio", para: "Ana", valor: 30 }, { de: "Caio", para: "Bia", valor: 70 }]));
 test("divide créditos entre vários devedores", () => expect(transferencias([{ id: "a", nome: "Ana", saldo: 100 }, { id: "b", nome: "Bia", saldo: -40 }, { id: "c", nome: "Caio", saldo: -60 }])).toEqual([{ de: "Bia", para: "Ana", valor: 40 }, { de: "Caio", para: "Ana", valor: 60 }]));
 test("quita vários devedores e credores", () => expect(transferencias([{ id: "a", nome: "Ana", saldo: 80 }, { id: "b", nome: "Bia", saldo: -50 }, { id: "c", nome: "Caio", saldo: 20 }, { id: "d", nome: "Davi", saldo: -50 }])).toEqual([{ de: "Bia", para: "Ana", valor: 50 }, { de: "Davi", para: "Ana", valor: 30 }, { de: "Davi", para: "Caio", valor: 20 }]));
+test("preserva o valor total dos créditos nas sugestões", () => {
+  const sugestoes = transferencias([{ id: "a", nome: "Ana", saldo: 120 }, { id: "b", nome: "Bia", saldo: -30 }, { id: "c", nome: "Caio", saldo: -90 }]);
+  expect(sugestoes.reduce((soma, item) => soma + item.valor, 0)).toBe(120);
+});
