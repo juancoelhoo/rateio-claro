@@ -40,3 +40,4 @@ test("orienta o pagamento de quem consumiu para quem adiantou", () =>
 
 // Entradas de valores em reais.
 test("converte um valor inteiro em reais", () => expect(centavos("12")).toBe(1200));
+test("converte duas casas decimais com vírgula", () => expect(centavos("12,34")).toBe(1234));
