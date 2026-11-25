@@ -75,3 +75,4 @@ test("rejeita peso nulo", () => expect(() => parcelas(100, { ana: null as unknow
 test("rejeita peso acima do limite", () => expect(() => parcelas(100, { ana: 10000 })).toThrow());
 
 // Saldos por participante.
+test("retorna lista vazia para encontro sem participantes", () => expect(resumo({ nome: "Vazio", pessoas: [], despesas: [] })).toEqual([]));
