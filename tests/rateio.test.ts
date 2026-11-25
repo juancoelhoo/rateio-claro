@@ -44,3 +44,4 @@ test("converte duas casas decimais com vírgula", () => expect(centavos("12,34")
 test("converte duas casas decimais com ponto", () => expect(centavos("12.34")).toBe(1234));
 test("completa a casa decimal ausente", () => expect(centavos("0,5")).toBe(50));
 test("aceita espaços externos", () => expect(centavos("  7,25  ")).toBe(725));
+test("converte o menor valor positivo", () => expect(centavos("0,01")).toBe(1));
