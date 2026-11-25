@@ -50,3 +50,4 @@ test("rejeita texto vazio", () => expect(() => centavos("")).toThrow());
 test("rejeita apenas espaços", () => expect(() => centavos("   ")).toThrow());
 test("rejeita valor negativo", () => expect(() => centavos("-1")).toThrow());
 test("rejeita sinal positivo", () => expect(() => centavos("+1")).toThrow());
+test("rejeita separadores repetidos", () => expect(() => centavos("1,2.3")).toThrow());
