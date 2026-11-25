@@ -64,3 +64,4 @@ test("preserva a soma ao ratear muitos centavos restantes", () => {
   expect(Object.values(partes).reduce((soma, valor) => soma + valor, 0)).toBe(1001);
   expect(Object.values(partes).filter((valor) => valor === 167)).toHaveLength(5);
 });
+test("rejeita despesa zero", () => expect(() => parcelas(0, { ana: 1 })).toThrow());
