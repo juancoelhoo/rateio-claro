@@ -72,3 +72,6 @@ test("rejeita peso zero", () => expect(() => parcelas(100, { ana: 0 })).toThrow(
 test("rejeita peso negativo", () => expect(() => parcelas(100, { ana: -1 })).toThrow());
 test("rejeita peso fracionário", () => expect(() => parcelas(100, { ana: 1.5 })).toThrow());
 test("rejeita peso nulo", () => expect(() => parcelas(100, { ana: null as unknown as number })).toThrow());
+test("rejeita peso acima do limite", () => expect(() => parcelas(100, { ana: 10000 })).toThrow());
+
+// Saldos por participante.
