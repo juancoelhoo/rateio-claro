@@ -85,3 +85,4 @@ test("acumula despesas pagas por participantes diferentes", () => {
   const dados = { nome: "Viagem", pessoas: [{ id: "a", nome: "Ana" }, { id: "b", nome: "Bia" }], despesas: [{ descricao: "Almoço", valor: 1000, pagador: "a", pesos: { a: 1, b: 1 } }, { descricao: "Táxi", valor: 600, pagador: "b", pesos: { a: 1, b: 1 } }] };
   expect(resumo(dados).map(({ pago, consumo, saldo }) => ({ pago, consumo, saldo }))).toEqual([{ pago: 1000, consumo: 800, saldo: 200 }, { pago: 600, consumo: 800, saldo: -200 }]);
 });
+test("mantém em zero o saldo de quem não pagou nem consumiu", () => expect(resumo(encontro)[2]).toMatchObject({ pago: 0, consumo: 0, saldo: 0 }));
