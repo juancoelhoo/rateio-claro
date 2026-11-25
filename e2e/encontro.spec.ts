@@ -37,3 +37,20 @@ test("preserva o encontro anterior no histórico", async ({ page }) => {
     page.getByRole("heading", { name: "Piquenique", exact: true }),
   ).toBeVisible();
 });
+
+test("divide bebidas somente entre quem consumiu", async ({ page }) => {
+  await page.goto("/");
+  await page.getByLabel("Nome do encontro").fill("Bebidas");
+  await page.getByRole("button", { name: "Criar encontro" }).click();
+  for (const nome of ["Ana", "Bia"]) {
+    await page.getByLabel("Nome do participante").fill(nome);
+    await page.getByRole("button", { name: "Adicionar participante" }).click();
+  }
+  await page.getByLabel("Ana", { exact: true }).uncheck();
+  await page.getByLabel("Descrição").fill("Suco");
+  await page.getByLabel("Valor (R$)").fill("30");
+  await page.getByRole("button", { name: "Registrar despesa" }).click();
+  await expect(page.getByText(/Bia transfere R\$\s*30,00 para Ana/)).toBeVisible();
+  await expect(page.getByRole("row", { name: /Bia R\$\s*0,00 R\$\s*30,00 -R\$\s*30,00/ })).toBeVisible();
+});
+
