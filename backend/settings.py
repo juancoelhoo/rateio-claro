@@ -22,4 +22,6 @@ SESSION_ENGINE = "django.contrib.sessions.backends.signed_cookies"
 SESSION_COOKIE_AGE = 60 * 60 * 24 * 365
 SESSION_SAVE_EVERY_REQUEST = True
 USE_TZ = True
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173","http://127.0.0.1:5173","http://127.0.0.1:4173"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://127.0.0.1:5173", "http://127.0.0.1:4173"] + [
+    o for o in os.getenv("DJANGO_CSRF_TRUSTED_ORIGINS", "").split(",") if o
+]
